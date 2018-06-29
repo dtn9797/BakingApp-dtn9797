@@ -62,4 +62,9 @@ public class RecipeMenuAdapter extends ArrayAdapter {
 
         return convertView;
     }
+
+    public void setData(List<Recipe> mData) {
+        this.mData = mData;
+        notifyDataSetChanged();
+    }
 }
