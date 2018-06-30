@@ -27,9 +27,8 @@ import retrofit2.Response;
 public class RecipeActivity extends AppCompatActivity {
 
     static private String Tag = RecipeActivity.class.getSimpleName();
+    public static String RECIPES_EXTRA = "recipes_extra";
 
-    @BindView(R.id.menu_toolbar)
-    Toolbar menuToolbar;
     @BindView(R.id.recipe_grid_view)
     GridView recipeGv;
     RecipeMenuAdapter mRecipeMenuAdapter;
@@ -42,16 +41,24 @@ public class RecipeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         if (savedInstanceState != null) {
+            mRecipes = savedInstanceState.getParcelableArrayList(RECIPES_EXTRA);
+            populateUI();
+        }
+        else {
+            loadRecipesData();
         }
 
-        mRecipeMenuAdapter = new RecipeMenuAdapter(RecipeActivity.this, R.layout.grid_item_layout, mRecipes);
-        recipeGv.setAdapter(mRecipeMenuAdapter);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(RECIPES_EXTRA,(ArrayList<Recipe>)mRecipes);
+    }
 
+    public void populateUI (){
+        mRecipeMenuAdapter = new RecipeMenuAdapter(RecipeActivity.this, R.layout.grid_item_layout, mRecipes);
+        recipeGv.setAdapter(mRecipeMenuAdapter);
     }
 
     public void loadRecipesData () {
@@ -61,7 +68,7 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 mRecipes = response.body();
-                mRecipeMenuAdapter.setData(mRecipes);
+                populateUI();
             }
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
@@ -82,5 +89,4 @@ public class RecipeActivity extends AppCompatActivity {
             }
         });
     }
-
 }

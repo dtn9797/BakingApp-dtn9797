@@ -24,7 +24,7 @@ import java.util.List;
 public class RecipeMenuAdapter extends ArrayAdapter {
     private Context mContext;
     private int mLayoutResourceId;
-    private List<Recipe> mData = new ArrayList<>();
+    public List<Recipe> mData = new ArrayList<>();
 
     public RecipeMenuAdapter(Context context, int layoutResourceId, List<Recipe> data) {
         super(context, layoutResourceId, data);
@@ -63,8 +63,4 @@ public class RecipeMenuAdapter extends ArrayAdapter {
         return convertView;
     }
 
-    public void setData(List<Recipe> mData) {
-        this.mData = mData;
-        notifyDataSetChanged();
-    }
 }
