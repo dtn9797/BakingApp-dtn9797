@@ -1,7 +1,9 @@
 package com.example.duynguyen.bakingapp_dtn9797;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.nfc.Tag;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -50,10 +52,21 @@ public class RecipeActivity extends AppCompatActivity {
         else {
             loadRecipesData();
         }
+
         recipeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
+//                Tea item = (Tea) adapterView.getItemAtPosition(position);
+//                // Set the intent to open the {@link OrderActivity}
+//                mTeaIntent = new Intent(MenuActivity.this, OrderActivity.class);
+//                String teaName = item.getTeaName();
+//                mTeaIntent.putExtra(EXTRA_TEA_NAME, teaName);
+//                startActivity(mTeaIntent);
+                Recipe item = (Recipe) parent.getItemAtPosition(position);
+                Intent detailRecipeListIntent = new Intent(RecipeActivity.this,DetailRecipeListActivity.class);
+                detailRecipeListIntent.putParcelableArrayListExtra(DetailRecipeListActivity.RECIPES_EXTRA, (ArrayList<Recipe>) mRecipes);
+                startActivity(detailRecipeListIntent);
             }
         });
 
