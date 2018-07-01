@@ -1,4 +1,4 @@
-package com.example.duynguyen.bakingapp_dtn9797.utils;
+package com.example.duynguyen.bakingapp_dtn9797;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,8 +7,10 @@ import android.util.AndroidException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.R;
 
@@ -32,7 +34,7 @@ public class DetailRecipeListFragment extends Fragment {
 
         ListView listView = (ListView)rootView.findViewById(R.id.lv);
         // Initializing a new String Array
-        String[] fruits = new String[] {
+        final String[] fruits = new String[] {
                 "Cattley Guava",
                 "Cawesh",
                 "Cedar Bay cherry ",
@@ -48,6 +50,13 @@ public class DetailRecipeListFragment extends Fragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
                 (getContext(), android.R.layout.simple_list_item_1, fruits_list);
         listView.setAdapter(arrayAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(),fruits[position] + "is clicked.",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return rootView;
     }

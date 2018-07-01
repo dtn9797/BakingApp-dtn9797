@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RecipeClient;
@@ -47,6 +50,12 @@ public class RecipeActivity extends AppCompatActivity {
         else {
             loadRecipesData();
         }
+        recipeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
