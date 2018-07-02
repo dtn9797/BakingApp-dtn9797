@@ -78,6 +78,14 @@ public class Recipe implements Parcelable {
         this.image = image;
     }
 
+    public ArrayList<String> getShortDescriptionsFromSteps (){
+        ArrayList<String> result = new ArrayList<>();
+        result.add("Recipe Ingredients");
+        for (int i = 0; i<steps.size(); i++){
+            result.add(steps.get(i).getShortDescription());
+        }
+        return result;
+    }
 
     @Override
     public int describeContents() {

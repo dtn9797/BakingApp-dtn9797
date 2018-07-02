@@ -1,6 +1,6 @@
 package com.example.duynguyen.bakingapp_dtn9797;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.AndroidException;
@@ -24,6 +24,8 @@ import java.util.List;
 
 public class DetailRecipeListFragment extends Fragment {
 
+    public static String LIST_NAMES_EXTRA = "names_extra";
+
     public DetailRecipeListFragment() {
     }
 
@@ -33,28 +35,15 @@ public class DetailRecipeListFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_detail_recipe_list,container,false);
 
         ListView listView = (ListView)rootView.findViewById(R.id.lv);
-        // Initializing a new String Array
-        final String[] fruits = new String[] {
-                "Cattley Guava",
-                "Cawesh",
-                "Cedar Bay cherry ",
-                "Chayote",
-                "Carambola",
-                "Cantaloupe"
-        };
-
-        // Create a List from String Array elements
-        List<String> fruits_list = new ArrayList<String>(Arrays.asList(fruits));
-
-        // Create a ArrayAdapter from List
+        final ArrayList<String> names_list = getArguments().getStringArrayList(LIST_NAMES_EXTRA);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (getContext(), android.R.layout.simple_list_item_1, fruits_list);
+                (getContext(), android.R.layout.simple_list_item_1, (List<String>) names_list);
         listView.setAdapter(arrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),fruits[position] + "is clicked.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),names_list.get(position) + "is clicked.",Toast.LENGTH_SHORT).show();
             }
         });
 
