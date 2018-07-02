@@ -9,4 +9,8 @@
     <!--Button name-->
     <string name="reload_button">Reload</string>
 
+    <!--ingredient_vh-->
+    <string name="ingredient_name">lemon juices</string>
+    <string name="ingredient_amount">2 tablespoons</string>
+
 </resources>
