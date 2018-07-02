@@ -57,15 +57,9 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
-//                Tea item = (Tea) adapterView.getItemAtPosition(position);
-//                // Set the intent to open the {@link OrderActivity}
-//                mTeaIntent = new Intent(MenuActivity.this, OrderActivity.class);
-//                String teaName = item.getTeaName();
-//                mTeaIntent.putExtra(EXTRA_TEA_NAME, teaName);
-//                startActivity(mTeaIntent);
                 Recipe item = (Recipe) parent.getItemAtPosition(position);
                 Intent detailRecipeListIntent = new Intent(RecipeActivity.this,DetailRecipeListActivity.class);
-                detailRecipeListIntent.putParcelableArrayListExtra(DetailRecipeListActivity.RECIPES_EXTRA, (ArrayList<Recipe>) mRecipes);
+                detailRecipeListIntent.putExtra(DetailRecipeListActivity.RECIPE_EXTRA,item);
                 startActivity(detailRecipeListIntent);
             }
         });
