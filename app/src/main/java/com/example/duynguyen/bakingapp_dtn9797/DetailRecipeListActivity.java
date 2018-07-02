@@ -28,6 +28,8 @@ public class DetailRecipeListActivity extends AppCompatActivity {
         }
 
         Recipe recipe = intent.getParcelableExtra(RECIPE_EXTRA);
+        setTitle(recipe.getName());
+
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(DetailRecipeListFragment.LIST_NAMES_EXTRA, recipe.getShortDescriptionsFromSteps());
