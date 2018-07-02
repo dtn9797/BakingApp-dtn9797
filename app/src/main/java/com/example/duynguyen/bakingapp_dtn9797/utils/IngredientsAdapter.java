@@ -36,7 +36,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
         public void setData(Ingredient data) {
             recipeName.setText(data.getIngredient());
-            recipeName.setText(data.getQuantity().toString()+" "+data.getMeasure());
+            recipeName.setText(mContext.getString(R.string.ingredient_amount,data.getQuantity(),data.getMeasure()));
         }
     }
 

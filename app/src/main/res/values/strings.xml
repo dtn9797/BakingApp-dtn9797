@@ -10,7 +10,10 @@
     <string name="reload_button">Reload</string>
 
     <!--ingredient_vh-->
-    <string name="ingredient_name">lemon juices</string>
-    <string name="ingredient_amount">2 tablespoons</string>
+    <string name="ingredient_name_hardcoded">lemon juices</string>
+    <string name="ingredient_amount_hardcoded">2 tablespoons</string>
+
+    <!--ingredientAdapter-->
+    <string name="ingredient_amount">%d %s</string>
 
 </resources>
