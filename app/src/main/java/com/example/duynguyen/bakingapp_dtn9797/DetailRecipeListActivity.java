@@ -3,19 +3,23 @@ package com.example.duynguyen.bakingapp_dtn9797;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 
+import java.util.ArrayList;
+
 /**
  * Created by duynguyen on 6/29/18.
  */
 
-public class DetailRecipeListActivity extends AppCompatActivity {
+public class DetailRecipeListActivity extends AppCompatActivity implements DetailRecipeListFragment.OnItemClickListener {
 
     public static String RECIPE_EXTRA = "recipe_extra";
+    Recipe recipe;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ public class DetailRecipeListActivity extends AppCompatActivity {
             closeOnError();
         }
 
-        Recipe recipe = intent.getParcelableExtra(RECIPE_EXTRA);
+        recipe = intent.getParcelableExtra(RECIPE_EXTRA);
         setTitle(recipe.getName());
 
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -40,6 +44,7 @@ public class DetailRecipeListActivity extends AppCompatActivity {
                 .add(R.id.detail_recipe_list_fragment, detailRecipeListFragment)
                 .commit();
 
+
     }
 
     private void closeOnError() {
@@ -48,4 +53,12 @@ public class DetailRecipeListActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemSelected(int position) {
+        if (position == 0){
+            Intent ingredientsIntent = new Intent(DetailRecipeListActivity.this,IngredientsActivity.class);
+            ingredientsIntent.putParcelableArrayListExtra(IngredientsActivity.INGREDIENTS_EXTRA, (ArrayList<? extends Parcelable>) recipe.getIngredients());
+            startActivity(ingredientsIntent);
+        }
+    }
 }

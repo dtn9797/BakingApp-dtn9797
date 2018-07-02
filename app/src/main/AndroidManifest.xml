@@ -24,6 +24,11 @@
             android:parentActivityName=".RecipeActivity"
             />
 
+        <activity android:name=".IngredientsActivity"
+            android:parentActivityName=".RecipeActivity"
+            android:label="@string/ingredients_name"
+            />
+
     </application>
     
 </manifest>
