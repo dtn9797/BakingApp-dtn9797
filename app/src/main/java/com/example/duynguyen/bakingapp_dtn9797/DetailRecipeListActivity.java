@@ -1,6 +1,5 @@
 package com.example.duynguyen.bakingapp_dtn9797;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -8,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.duynguyen.bakingapp_dtn9797.fragments.DetailRecipeListFragment;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 
 import java.util.ArrayList;

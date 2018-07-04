@@ -1,4 +1,4 @@
-package com.example.duynguyen.bakingapp_dtn9797;
+package com.example.duynguyen.bakingapp_dtn9797.fragments;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
