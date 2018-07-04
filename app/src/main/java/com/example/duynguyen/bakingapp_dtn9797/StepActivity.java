@@ -66,9 +66,13 @@ public class StepActivity extends AppCompatActivity {
             }
         });
 
+        String stepDescription = "6. Scrape down the sides of the pan. Add in the eggs one at a time, beating each one on medium-low speed just until incorporated. Scrape down the sides and bottom of the bowl. Add in both egg yolks and beat until just incorporated.";
+        String videoUrl = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdb72_5-mix-vanilla-cream-together-cheesecake/5-mix-vanilla-cream-together-cheesecake.mp4";
+
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        //bundle.putString(PlayerFragment.VIDEO_URL_EXTRA,url);
+        bundle.putString(PlayerFragment.DESCRIPTION_EXTRA,stepDescription);
+        bundle.putString(PlayerFragment.VIDEO_URL_EXTRA,videoUrl);
         PlayerFragment playerFragment = new PlayerFragment();
         playerFragment.setArguments(bundle);
 

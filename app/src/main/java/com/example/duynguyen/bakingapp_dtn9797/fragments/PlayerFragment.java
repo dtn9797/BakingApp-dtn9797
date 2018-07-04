@@ -38,8 +38,9 @@ public class PlayerFragment extends Fragment {
     private long playbackPosition;
     private int currentWindow;
     private boolean playWhenReady = true;
-    private Uri videoUri = Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdb72_5-mix-vanilla-cream-together-cheesecake/5-mix-vanilla-cream-together-cheesecake.mp4");
 
+    private Uri videoUri;
+    private String stepDescription;
 
     public PlayerFragment() {
 
@@ -53,7 +54,10 @@ public class PlayerFragment extends Fragment {
         playerView = view.findViewById(R.id.video_view);
         stepDescriptionTv = view.findViewById(R.id.step_instruction_tv);
 
-        stepDescriptionTv.setText("6. Scrape down the sides of the pan. Add in the eggs one at a time, beating each one on medium-low speed just until incorporated. Scrape down the sides and bottom of the bowl. Add in both egg yolks and beat until just incorporated.");
+        videoUri = Uri.parse(getArguments().getString(VIDEO_URL_EXTRA));
+        stepDescription = getArguments().getString(DESCRIPTION_EXTRA);
+
+        stepDescriptionTv.setText(stepDescription);
 
         return view;
     }
