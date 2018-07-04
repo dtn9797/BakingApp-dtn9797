@@ -16,6 +16,7 @@
 package com.example.duynguyen.bakingapp_dtn9797;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.fragments.DetailRecipeListFragment;
 import com.example.duynguyen.bakingapp_dtn9797.fragments.PlayerFragment;
+import com.example.duynguyen.bakingapp_dtn9797.model.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -38,21 +40,30 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.List;
+
 /**
  * A fullscreen activity to play audio or video streams.
  */
 public class StepActivity extends AppCompatActivity {
 
-    private String TAG = StepActivity.class.getSimpleName();
-
+    private static String TAG = StepActivity.class.getSimpleName();
+    public static String STEPS_EXTRA = "steps";
+    public static String POS_EXTRA = "pos";
 
     private Toolbar toolBar;
+
+    private int currentPos;
+    private int defaultPos = 0;
+    private List<Step> steps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_recipe_step);
+
+
 
         toolBar = (Toolbar) findViewById(R.id.toolBar);
 
@@ -66,8 +77,17 @@ public class StepActivity extends AppCompatActivity {
             }
         });
 
-        String stepDescription = "6. Scrape down the sides of the pan. Add in the eggs one at a time, beating each one on medium-low speed just until incorporated. Scrape down the sides and bottom of the bowl. Add in both egg yolks and beat until just incorporated.";
-        String videoUrl = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffdb72_5-mix-vanilla-cream-together-cheesecake/5-mix-vanilla-cream-together-cheesecake.mp4";
+        Intent intent = getIntent();
+        if (intent == null){
+            closeOnError();
+        }
+        currentPos = intent.getIntExtra(POS_EXTRA,defaultPos);
+        steps = intent.getParcelableArrayListExtra(STEPS_EXTRA);
+
+        String stepDescription = steps.get(currentPos).getDescription();
+        String url0 = steps.get(currentPos).getVideoURL();
+        String url1 = steps.get(currentPos).getThumbnailURL();
+        String videoUrl = (url1.equals(""))?url0:url1;
 
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
@@ -87,6 +107,11 @@ public class StepActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(),"Back button is clicked",Toast.LENGTH_LONG).show();
 //        return true;
 //    }
+
+    private void closeOnError() {
+        finish();
+        Toast.makeText(this, getString(R.string.close_on_intent_error), Toast.LENGTH_SHORT).show();
+    }
 
 
     public void nextOnClick (View view){

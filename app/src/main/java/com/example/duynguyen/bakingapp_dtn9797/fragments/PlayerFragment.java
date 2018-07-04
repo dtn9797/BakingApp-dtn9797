@@ -22,6 +22,8 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.net.URI;
+
 /**
  * Created by duynguyen on 7/4/18.
  */
@@ -39,7 +41,7 @@ public class PlayerFragment extends Fragment {
     private int currentWindow;
     private boolean playWhenReady = true;
 
-    private Uri videoUri;
+    private String videoUrl;
     private String stepDescription;
 
     public PlayerFragment() {
@@ -54,9 +56,12 @@ public class PlayerFragment extends Fragment {
         playerView = view.findViewById(R.id.video_view);
         stepDescriptionTv = view.findViewById(R.id.step_instruction_tv);
 
-        videoUri = Uri.parse(getArguments().getString(VIDEO_URL_EXTRA));
+        videoUrl = getArguments().getString(VIDEO_URL_EXTRA);
         stepDescription = getArguments().getString(DESCRIPTION_EXTRA);
 
+        if(videoUrl.equals("")){
+            playerView.setVisibility(View.GONE);
+        }
         stepDescriptionTv.setText(stepDescription);
 
         return view;
@@ -65,7 +70,7 @@ public class PlayerFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (Util.SDK_INT > 23) {
+        if (Util.SDK_INT > 23 && !videoUrl.equals("")) {
             initializePlayer();
         }
     }
@@ -74,7 +79,7 @@ public class PlayerFragment extends Fragment {
     public void onResume() {
         super.onResume();
         hideSystemUi();
-        if ((Util.SDK_INT <= 23 || player == null)) {
+        if ((Util.SDK_INT <= 23 || player == null) && !videoUrl.equals("")) {
             initializePlayer();
         }
     }
@@ -104,7 +109,7 @@ public class PlayerFragment extends Fragment {
             player.seekTo(currentWindow, playbackPosition);
         }
         MediaSource mediaSource = new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory("bakingApp-dtn9797"))
-                .createMediaSource(videoUri);
+                .createMediaSource(Uri.parse(videoUrl));
         player.prepare(mediaSource, true, false);
     }
 
