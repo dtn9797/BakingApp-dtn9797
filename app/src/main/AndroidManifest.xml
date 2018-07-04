@@ -28,6 +28,7 @@
             android:parentActivityName=".RecipeActivity"
             android:label="@string/ingredients_name"
             />
+        <activity android:name=".StepActivity"/>
 
     </application>
     
