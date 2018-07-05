@@ -2,13 +2,9 @@ package com.example.duynguyen.bakingapp_dtn9797;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.nfc.Tag;
-import android.os.Parcelable;
-import android.os.PersistableBundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,9 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecipeActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    static private String Tag = RecipeActivity.class.getSimpleName();
+    static private String Tag = MainActivity.class.getSimpleName();
     public static String RECIPES_EXTRA = "recipes_extra";
 
     @BindView(R.id.recipe_grid_view)
@@ -42,7 +38,7 @@ public class RecipeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         if (savedInstanceState != null) {
@@ -58,8 +54,8 @@ public class RecipeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
                 Recipe item = (Recipe) parent.getItemAtPosition(position);
-                Intent detailRecipeListIntent = new Intent(RecipeActivity.this,DetailRecipeListActivity.class);
-                detailRecipeListIntent.putExtra(DetailRecipeListActivity.RECIPE_EXTRA,item);
+                Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
+                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA,item);
                 startActivity(detailRecipeListIntent);
             }
         });
@@ -73,7 +69,7 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void populateUI (){
-        mRecipeMenuAdapter = new RecipeMenuAdapter(RecipeActivity.this, R.layout.grid_item_layout, mRecipes);
+        mRecipeMenuAdapter = new RecipeMenuAdapter(MainActivity.this, R.layout.grid_item_layout, mRecipes);
         recipeGv.setAdapter(mRecipeMenuAdapter);
     }
 
@@ -90,7 +86,7 @@ public class RecipeActivity extends AppCompatActivity {
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
                 //Show alert dialog
                 Log.e("Error", "Error in retrofit");
-                AlertDialog.Builder dialog = new AlertDialog.Builder(RecipeActivity.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setCancelable(false);
                 dialog.setTitle(getString(R.string.connection_error_title));
                 dialog.setMessage(getString(R.string.connection_error));

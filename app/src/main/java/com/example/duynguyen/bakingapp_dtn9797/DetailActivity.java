@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.example.duynguyen.bakingapp_dtn9797.fragments.DetailRecipeListFragment;
+import com.example.duynguyen.bakingapp_dtn9797.fragments.ListFragment;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by duynguyen on 6/29/18.
  */
 
-public class DetailRecipeListActivity extends AppCompatActivity implements DetailRecipeListFragment.OnItemClickListener {
+public class DetailActivity extends AppCompatActivity implements ListFragment.OnItemClickListener {
 
     public static String RECIPE_EXTRA = "recipe_extra";
     Recipe recipe;
@@ -24,7 +24,7 @@ public class DetailRecipeListActivity extends AppCompatActivity implements Detai
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_recipe_list);
+        setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -36,12 +36,12 @@ public class DetailRecipeListActivity extends AppCompatActivity implements Detai
 
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList(DetailRecipeListFragment.LIST_NAMES_EXTRA, recipe.getShortDescriptionsFromSteps());
-        DetailRecipeListFragment detailRecipeListFragment = new DetailRecipeListFragment();
-        detailRecipeListFragment.setArguments(bundle);
+        bundle.putStringArrayList(ListFragment.LIST_NAMES_EXTRA, recipe.getShortDescriptionsFromSteps());
+        ListFragment listFragment = new ListFragment();
+        listFragment.setArguments(bundle);
 
         fragmentManager.beginTransaction()
-                .add(R.id.detail_recipe_list_fragment, detailRecipeListFragment)
+                .add(R.id.detail_recipe_list_fragment, listFragment)
                 .commit();
 
 
@@ -56,12 +56,12 @@ public class DetailRecipeListActivity extends AppCompatActivity implements Detai
     @Override
     public void onItemSelected(int position) {
         if (position == 0){
-            Intent ingredientsIntent = new Intent(DetailRecipeListActivity.this,IngredientsActivity.class);
+            Intent ingredientsIntent = new Intent(DetailActivity.this,IngredientsActivity.class);
             ingredientsIntent.putParcelableArrayListExtra(IngredientsActivity.INGREDIENTS_EXTRA, (ArrayList<? extends Parcelable>) recipe.getIngredients());
             startActivity(ingredientsIntent);
         }
         else {
-            Intent stepIntent = new Intent(DetailRecipeListActivity.this,StepActivity.class);
+            Intent stepIntent = new Intent(DetailActivity.this,StepActivity.class);
             stepIntent.putParcelableArrayListExtra(StepActivity.STEPS_EXTRA, (ArrayList<? extends Parcelable>) recipe.getSteps());
             stepIntent.putExtra(StepActivity.POS_EXTRA,position-1);
             stepIntent.putExtra(StepActivity.RECIPE_NAME_EXTRA,recipe.getName());
