@@ -2,15 +2,19 @@ package com.example.duynguyen.bakingapp_dtn9797;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.example.duynguyen.bakingapp_dtn9797.fragments.IngredientsFragment;
 import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
 import com.example.duynguyen.bakingapp_dtn9797.utils.IngredientsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,8 +22,8 @@ import java.util.List;
  */
 
 public class IngredientsActivity extends AppCompatActivity {
+
     public static String INGREDIENTS_EXTRA = "i_extra";
-    List<Ingredient> mIngredients = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,14 +35,17 @@ public class IngredientsActivity extends AppCompatActivity {
             closeOnError();
         }
 
-        mIngredients = intent.getParcelableArrayListExtra(INGREDIENTS_EXTRA);
+        List<Ingredient> ingredients = intent.getParcelableArrayListExtra(INGREDIENTS_EXTRA);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        IngredientsFragment ingredientsFragment = new IngredientsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(IngredientsFragment.INGREDIENTS_EXTRA, (ArrayList<? extends Parcelable>) ingredients);
+        ingredientsFragment.setArguments(bundle);
+        fragmentManager.beginTransaction()
+                        .add(R.id.ingredients_fragment,ingredientsFragment)
+                        .commit();
 
-        RecyclerView rv = (RecyclerView)findViewById(R.id.ingredients_rv);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        IngredientsAdapter ingredientsAdapter = new IngredientsAdapter(this, mIngredients);
-        rv.setLayoutManager(linearLayoutManager);
-        rv.setAdapter(ingredientsAdapter);
     }
 
     private void closeOnError() {
