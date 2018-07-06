@@ -34,15 +34,17 @@ public class DetailActivity extends AppCompatActivity implements ListFragment.On
         recipe = intent.getParcelableExtra(RECIPE_EXTRA);
         setTitle(recipe.getName());
 
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList(ListFragment.LIST_NAMES_EXTRA, recipe.getShortDescriptionsFromSteps());
-        ListFragment listFragment = new ListFragment();
-        listFragment.setArguments(bundle);
+        if(savedInstanceState == null) {
+            android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList(ListFragment.LIST_NAMES_EXTRA, recipe.getShortDescriptionsFromSteps());
+            ListFragment listFragment = new ListFragment();
+            listFragment.setArguments(bundle);
 
-        fragmentManager.beginTransaction()
-                .add(R.id.detail_recipe_list_fragment, listFragment)
-                .commit();
+            fragmentManager.beginTransaction()
+                    .add(R.id.detail_recipe_list_fragment, listFragment)
+                    .commit();
+        }
 
 
     }
