@@ -2,6 +2,7 @@ package com.example.duynguyen.bakingapp_dtn9797;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
                 Recipe item = (Recipe) parent.getItemAtPosition(position);
                 Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
-                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA,item);
+                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA,(Parcelable)item);
                 startActivity(detailRecipeListIntent);
             }
         });

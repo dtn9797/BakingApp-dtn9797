@@ -26,6 +26,7 @@ public class ListFragment extends Fragment {
 
     public static String LIST_NAMES_EXTRA = "names_extra";
 
+
     private ArrayList<String> mNameList;
 
     // Define a new interface OnImageClickListener that triggers a callback in the host activity

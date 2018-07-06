@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class DetailActivity extends AppCompatActivity implements ListFragment.OnItemClickListener {
 
     public static String RECIPE_EXTRA = "recipe_extra";
+
     Recipe recipe;
 
     @Override
@@ -26,15 +27,14 @@ public class DetailActivity extends AppCompatActivity implements ListFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Intent intent = getIntent();
-        if (intent == null) {
-            closeOnError();
-        }
-
-        recipe = intent.getParcelableExtra(RECIPE_EXTRA);
-        setTitle(recipe.getName());
-
         if(savedInstanceState == null) {
+            Intent intent = getIntent();
+            if (intent == null) {
+                closeOnError();
+            }
+
+            recipe = intent.getParcelableExtra(RECIPE_EXTRA);
+
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             Bundle bundle = new Bundle();
             bundle.putStringArrayList(ListFragment.LIST_NAMES_EXTRA, recipe.getShortDescriptionsFromSteps());
@@ -44,8 +44,11 @@ public class DetailActivity extends AppCompatActivity implements ListFragment.On
             fragmentManager.beginTransaction()
                     .add(R.id.detail_recipe_list_fragment, listFragment)
                     .commit();
+        } else {
+            recipe = savedInstanceState.getParcelable(RECIPE_EXTRA);
         }
 
+        setTitle(recipe.getName());
 
     }
 
@@ -69,5 +72,11 @@ public class DetailActivity extends AppCompatActivity implements ListFragment.On
             stepIntent.putExtra(StepActivity.RECIPE_NAME_EXTRA,recipe.getName());
             startActivity(stepIntent);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECIPE_EXTRA,recipe);
     }
 }
