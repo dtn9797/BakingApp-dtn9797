@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
                 detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA,(Parcelable)item);
 
-                WidgetUpdateService.startActionUpdateListView(getApplicationContext(),item.getName(), (ArrayList<Ingredient>) item.getIngredients());
+                WidgetUpdateService.startActionUpdateListView(getApplicationContext(), item);
 
                 startActivity(detailRecipeListIntent);
             }

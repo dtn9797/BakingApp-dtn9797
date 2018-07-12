@@ -8,6 +8,7 @@ import android.widget.RemoteViewsService;
 import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
 import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
+import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,6 @@ public class ListViewWigetService extends RemoteViewsService {
 
  class AppWidgetListView implements RemoteViewsService.RemoteViewsFactory {
     private Context mContext;
-    String recipe_name = "Recipe_Name";
     List<Ingredient> ingredients = new ArrayList<>();
 
      public AppWidgetListView(Context mContext){
@@ -34,15 +34,12 @@ public class ListViewWigetService extends RemoteViewsService {
 
      @Override
     public void onCreate() {
-//        ingredients.add(new Ingredient(20.0, "pb", "ingredient0"));
-//        ingredients.add(new Ingredient(21.0, "pl", "ingredient1"));
-//        ingredients.add(new Ingredient(22.0, "pa", "ingredient2"));
     }
 
     @Override
     public void onDataSetChanged() {
-         recipe_name = WidgetDataModel.getRecipeName(mContext);
-         ingredients = WidgetDataModel.getArrayListIngredients(mContext);
+         Recipe recipe = WidgetDataModel.getRecipe(mContext);
+         ingredients = recipe.getIngredients();
     }
 
     @Override

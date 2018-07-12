@@ -9,6 +9,7 @@ import android.widget.RemoteViews;
 
 import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
+import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 
 /**
  * Implementation of App Widget functionality.
@@ -18,7 +19,11 @@ public class BakingAppWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = WidgetDataModel.getRecipeName(context);
+        CharSequence widgetText = "Recipe Name";
+        Recipe recipe = WidgetDataModel.getRecipe(context);
+        if (recipe !=null) {
+            widgetText = recipe.getName();
+        }
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
         views.setTextViewText(R.id.recipe_list_name, widgetText);
@@ -39,7 +44,7 @@ public class BakingAppWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        WidgetUpdateService.startActionUpdateListView(context,"",null);
+        WidgetUpdateService.startActionUpdateListView(context,null);
     }
 
     public static void updateAppWidgets (Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

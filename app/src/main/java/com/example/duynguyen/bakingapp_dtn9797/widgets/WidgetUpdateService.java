@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
 import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
+import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,7 @@ import java.util.List;
 public class WidgetUpdateService extends IntentService {
 
     public static final String ACTION_UPDATE_LIST_VIEW = "update_app_widget_list";
-    public static final String RECIPE_NAME_KEY = "recipe name key";
-    public static final String INGREDIENTS_KEY = "ingredients key";
-
+    public static final String RECIPE_KEY = "recipe";
     public WidgetUpdateService() {
         super("WidgetUpdateService");
     }
@@ -33,17 +32,15 @@ public class WidgetUpdateService extends IntentService {
         if (intent !=null){
             final String action = intent.getAction();
             if (ACTION_UPDATE_LIST_VIEW.equals(action)){
-                ArrayList<Ingredient> ingredients = intent.getParcelableArrayListExtra(INGREDIENTS_KEY);
-                String recipeName = intent.getStringExtra(RECIPE_NAME_KEY);
-                handleActionUpdateListView(recipeName,ingredients);
+                Recipe recipe = intent.getParcelableExtra(RECIPE_KEY);
+                handleActionUpdateListView(recipe);
             }
         }
     }
 
-    private void handleActionUpdateListView(String recipeName ,ArrayList<Ingredient> ingredients) {
-        if (!recipeName.equals("") && ingredients != null) {
-            WidgetDataModel.saveIngredients(this, ingredients);
-            WidgetDataModel.saveRecipeName(this, recipeName);
+    private void handleActionUpdateListView(Recipe recipe) {
+        if (recipe != null) {
+            WidgetDataModel.saveRecipe(this, recipe);
         }
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingAppWidget.class));
@@ -53,11 +50,10 @@ public class WidgetUpdateService extends IntentService {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredients_list);
     }
 
-    public static void startActionUpdateListView (Context context,String recipeName ,ArrayList<Ingredient> ingredients) {
+    public static void startActionUpdateListView (Context context,Recipe recipe) {
         Intent intent = new Intent(context,WidgetUpdateService.class);
         intent.setAction(WidgetUpdateService.ACTION_UPDATE_LIST_VIEW);
-        intent.putExtra(RECIPE_NAME_KEY,recipeName);
-        intent.putExtra(INGREDIENTS_KEY,ingredients);
+        intent.putExtra(RECIPE_KEY,recipe);
         context.startService(intent);
     }
 }
