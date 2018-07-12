@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.example.duynguyen.bakingapp_dtn9797.DetailActivity;
 import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
@@ -31,9 +32,14 @@ public class BakingAppWidget extends AppWidgetProvider {
         Intent intentService = new Intent(context, ListViewWigetService.class);
         views.setRemoteAdapter(R.id.ingredients_list,intentService);
 
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(DetailActivity.RECIPE_EXTRA,recipe);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.recipe_list_name,pendingIntent);
+        if (!widgetText.equals("Recipe Name")) {
+            views.setOnClickPendingIntent(R.id.recipe_list_name, pendingIntent);
+        }
+
+
 
         views.setEmptyView(R.id.ingredients_list,R.id.empty_view);
 
