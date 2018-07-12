@@ -42,6 +42,12 @@ public class BakingAppWidget extends AppWidgetProvider {
         }
     }
 
+    public static void updateAppWidgets (Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
