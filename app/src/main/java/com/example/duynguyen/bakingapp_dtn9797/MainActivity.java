@@ -1,5 +1,7 @@
 package com.example.duynguyen.bakingapp_dtn9797;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -12,10 +14,14 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RecipeClient;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RecipeMenuAdapter;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RetrofitClient;
+import com.example.duynguyen.bakingapp_dtn9797.widgets.BakingAppWidget;
+import com.example.duynguyen.bakingapp_dtn9797.widgets.WidgetDataModel;
+import com.example.duynguyen.bakingapp_dtn9797.widgets.WidgetUpdateService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 Recipe item = (Recipe) parent.getItemAtPosition(position);
                 Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
                 detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA,(Parcelable)item);
+
+                WidgetUpdateService.startActionUpdateListView(getApplicationContext(),item.getName(), (ArrayList<Ingredient>) item.getIngredients());
+
                 startActivity(detailRecipeListIntent);
             }
         });
