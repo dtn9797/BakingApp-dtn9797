@@ -20,6 +20,22 @@
             android:id="@+id/ingredients_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Ingredients are unavailable"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
     <!--</ScrollView>-->
 
 </LinearLayout>
