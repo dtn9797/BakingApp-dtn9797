@@ -39,7 +39,9 @@ public class BakingAppWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.recipe_list_name, pendingIntent);
         }
 
-
+        Intent appIntent = new Intent(context, DetailActivity.class);
+        PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.ingredients_list, appPendingIntent);
 
         views.setEmptyView(R.id.ingredients_list,R.id.empty_view);
 
