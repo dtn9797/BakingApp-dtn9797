@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
 import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public class ListViewWigetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new AppWidgetListView(getApplicationContext());
+        return new AppWidgetListView(getApplicationContext(),"Sample",WidgetDataModel.getArrayListIngredients(WidgetDataModel.INGREDIENTS_KEY,getApplicationContext()));
     }
 }
 
@@ -27,20 +28,22 @@ public class ListViewWigetService extends RemoteViewsService {
     String recipe_name = "Recipe_Name";
     List<Ingredient> ingredients = new ArrayList<>();
 
-     public AppWidgetListView(Context mContext) {
+     public AppWidgetListView(Context mContext, String recipe_name, List<Ingredient> ingredients) {
          this.mContext = mContext;
+         this.recipe_name = recipe_name;
+         this.ingredients = ingredients;
      }
 
      @Override
     public void onCreate() {
-        ingredients.add(new Ingredient(20.0, "pb", "ingredient0"));
-        ingredients.add(new Ingredient(21.0, "pl", "ingredient1"));
-        ingredients.add(new Ingredient(22.0, "pa", "ingredient2"));
+//        ingredients.add(new Ingredient(20.0, "pb", "ingredient0"));
+//        ingredients.add(new Ingredient(21.0, "pl", "ingredient1"));
+//        ingredients.add(new Ingredient(22.0, "pa", "ingredient2"));
     }
 
     @Override
     public void onDataSetChanged() {
-
+         ingredients = WidgetDataModel.getArrayListIngredients(WidgetDataModel.INGREDIENTS_KEY,mContext);
     }
 
     @Override
