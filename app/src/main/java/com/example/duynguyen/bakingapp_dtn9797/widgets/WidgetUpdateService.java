@@ -41,8 +41,10 @@ public class WidgetUpdateService extends IntentService {
     }
 
     private void handleActionUpdateListView(String recipeName ,ArrayList<Ingredient> ingredients) {
-        WidgetDataModel.saveIngredients(this, ingredients);
-
+        if (!recipeName.equals("") && ingredients != null) {
+            WidgetDataModel.saveIngredients(this, ingredients);
+            WidgetDataModel.saveRecipeName(this, recipeName);
+        }
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(this, BakingAppWidget.class));
 

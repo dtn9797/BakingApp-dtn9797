@@ -19,6 +19,7 @@ import java.util.List;
 
 public class WidgetDataModel {
     public static String INGREDIENTS_KEY = "in";
+    public static String RECIPE_NAME_KEY = "name";
 
     public static void saveIngredients (Context context, ArrayList<Ingredient> ingredients){
 
@@ -31,12 +32,27 @@ public class WidgetDataModel {
         prefsEditor.commit();
     }
 
-    public static ArrayList<Ingredient> getArrayListIngredients(String key,Activity activity){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+    public static ArrayList<Ingredient> getArrayListIngredients(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
-        String json = prefs.getString(key, null);
+        String json = prefs.getString(INGREDIENTS_KEY, null);
         Type type = new TypeToken<ArrayList<Ingredient>>() {}.getType();
         return gson.fromJson(json, type);
+    }
+
+    public static void saveRecipeName (Context context, String recipeName){
+
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+        prefsEditor.putString(RECIPE_NAME_KEY,recipeName);
+        prefsEditor.commit();
+    }
+
+    public static String getRecipeName (Context context){
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        return appSharedPrefs.getString(RECIPE_NAME_KEY,"Unknown Recipe");
     }
 
 }

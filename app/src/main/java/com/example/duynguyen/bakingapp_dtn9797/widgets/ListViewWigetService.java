@@ -19,7 +19,7 @@ import java.util.List;
 public class ListViewWigetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new AppWidgetListView(getApplicationContext(),"Sample",WidgetDataModel.getArrayListIngredients(WidgetDataModel.INGREDIENTS_KEY,getApplicationContext()));
+        return new AppWidgetListView(getApplicationContext());
     }
 }
 
@@ -28,10 +28,8 @@ public class ListViewWigetService extends RemoteViewsService {
     String recipe_name = "Recipe_Name";
     List<Ingredient> ingredients = new ArrayList<>();
 
-     public AppWidgetListView(Context mContext, String recipe_name, List<Ingredient> ingredients) {
+     public AppWidgetListView(Context mContext){
          this.mContext = mContext;
-         this.recipe_name = recipe_name;
-         this.ingredients = ingredients;
      }
 
      @Override
@@ -43,7 +41,8 @@ public class ListViewWigetService extends RemoteViewsService {
 
     @Override
     public void onDataSetChanged() {
-         ingredients = WidgetDataModel.getArrayListIngredients(WidgetDataModel.INGREDIENTS_KEY,mContext);
+         recipe_name = WidgetDataModel.getRecipeName(mContext);
+         ingredients = WidgetDataModel.getArrayListIngredients(mContext);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class ListViewWigetService extends RemoteViewsService {
          RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.list_item_widget);
 
          remoteViews.setTextViewText(R.id.ingredient_name_widget_tv,ingredients.get(position).getIngredient());
-         remoteViews.setTextViewText(R.id.ingredient_amount_widget_tv,ingredients.get(position).getMeasure());
+         remoteViews.setTextViewText(R.id.ingredient_amount_widget_tv,mContext.getResources().getString(R.string.ingredient_amount,ingredients.get(position).getQuantity(),ingredients.get(position).getMeasure()));
 
         return remoteViews;
     }
