@@ -58,7 +58,8 @@ public class RecipeMenuAdapter extends ArrayAdapter {
         }
 
         holder.imageTitle.setText(currentRecipe.getName());
-        holder.image.setImageResource(R.drawable.honey_lemon_tea);
+        int[] drawableIds = {R.drawable.n_pie,R.drawable.brownies,R.drawable.yellow_cake,R.drawable.cheese_cake};
+        holder.image.setImageResource(drawableIds[position]);
 
         return convertView;
     }
