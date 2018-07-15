@@ -71,7 +71,7 @@ public class StepActivity extends AppCompatActivity {
         recipeName = intent.getStringExtra(RECIPE_NAME_EXTRA);
 
         toolBar.setTitle(recipeName);
-        toolBar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+        toolBar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +79,8 @@ public class StepActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        setEnablePreviousNextButton();
 
         populatePlayerView();
 
@@ -118,23 +120,28 @@ public class StepActivity extends AppCompatActivity {
     public void nextOnClick (View view){
         Toast.makeText(this,"Next",Toast.LENGTH_SHORT).show();
         currentPos++;
-        if (currentPos == steps.size()-1){
-            nextButton.setEnabled(false);
-        }else if(currentPos == 0) {
-            previousButton.setEnabled(true);
-        }
+        setEnablePreviousNextButton();
         populatePlayerView();
     }
 
     public void previousOnClick (View view){
         Toast.makeText(this,"Previous",Toast.LENGTH_SHORT).show();
         currentPos--;
-        if (currentPos == 0) {
-            previousButton.setEnabled(false);
-        }else if (currentPos == steps.size()-1) {
-            nextButton.setEnabled(true);
-        }
+        setEnablePreviousNextButton();
         populatePlayerView();
+    }
+
+    public void setEnablePreviousNextButton (){
+        if (currentPos == steps.size()-1){
+            nextButton.setEnabled(false);
+        }
+        else if (currentPos == 0){
+            previousButton.setEnabled(false);
+        }
+        else{
+            nextButton.setEnabled(true);
+            previousButton.setEnabled(true);
+        }
     }
 
 }
