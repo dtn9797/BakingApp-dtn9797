@@ -55,9 +55,9 @@ public class StepActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_step);
 
-        toolBar = (Toolbar) findViewById(R.id.toolBar);
-        nextButton = (Button)findViewById(R.id.next_button);
-        previousButton = (Button)findViewById(R.id.previous_button);
+        toolBar = findViewById(R.id.toolBar);
+        nextButton = findViewById(R.id.next_button);
+        previousButton = findViewById(R.id.previous_button);
         fragmentManager = getSupportFragmentManager();
 
 

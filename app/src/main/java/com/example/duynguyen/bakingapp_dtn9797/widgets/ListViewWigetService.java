@@ -6,7 +6,6 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.duynguyen.bakingapp_dtn9797.DetailActivity;
-import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
 import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;

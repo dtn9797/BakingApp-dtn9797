@@ -50,8 +50,8 @@ public class RecipeMenuAdapter extends ArrayAdapter {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             convertView = inflater.inflate(mLayoutResourceId, parent, false);
             holder = new ViewHolder();
-            holder.imageTitle = (TextView) convertView.findViewById(R.id.recipe_grid_name);
-            holder.image = (ImageView) convertView.findViewById(R.id.image);
+            holder.imageTitle = convertView.findViewById(R.id.recipe_grid_name);
+            holder.image = convertView.findViewById(R.id.image);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

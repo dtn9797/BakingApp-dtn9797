@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.duynguyen.bakingapp_dtn9797.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by duynguyen on 6/29/18.
@@ -65,10 +64,10 @@ public class ListFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_list,container,false);
 
-        ListView listView = (ListView)rootView.findViewById(R.id.lv);
+        ListView listView = rootView.findViewById(R.id.lv);
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (getContext(), android.R.layout.simple_list_item_1, (List<String>) mNameList);
+                (getContext(), android.R.layout.simple_list_item_1, mNameList);
         listView.setAdapter(arrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

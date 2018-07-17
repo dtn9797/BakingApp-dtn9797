@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -59,7 +58,7 @@ public class DetailActivity extends AppCompatActivity implements ListFragment.On
 
         setTitle(recipe.getName());
         //Check for tablet layout
-        mTwoPane = (findViewById(R.id.step_player_fragment) != null) ? true : false;
+        mTwoPane = findViewById(R.id.step_player_fragment) != null;
     }
 
     private void closeOnError() {

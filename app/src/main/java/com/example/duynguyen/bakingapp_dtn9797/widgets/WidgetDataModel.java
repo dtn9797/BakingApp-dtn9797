@@ -1,18 +1,14 @@
 package com.example.duynguyen.bakingapp_dtn9797.widgets;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by duynguyen on 7/11/18.

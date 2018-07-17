@@ -1,10 +1,7 @@
 package com.example.duynguyen.bakingapp_dtn9797;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -19,13 +16,10 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.IdlingResource.SimpleIdlingResource;
-import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RecipeClient;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RecipeMenuAdapter;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RetrofitClient;
-import com.example.duynguyen.bakingapp_dtn9797.widgets.BakingAppWidget;
-import com.example.duynguyen.bakingapp_dtn9797.widgets.WidgetDataModel;
 import com.example.duynguyen.bakingapp_dtn9797.widgets.WidgetUpdateService;
 
 import java.util.ArrayList;
@@ -80,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
                 Recipe item = (Recipe) parent.getItemAtPosition(position);
                 Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
-                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA,(Parcelable)item);
+                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA, item);
 
                 WidgetUpdateService.startActionUpdateListView(getApplicationContext(), item);
 

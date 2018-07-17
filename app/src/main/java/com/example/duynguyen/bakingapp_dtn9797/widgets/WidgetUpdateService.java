@@ -7,13 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
-import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by duynguyen on 7/11/18.

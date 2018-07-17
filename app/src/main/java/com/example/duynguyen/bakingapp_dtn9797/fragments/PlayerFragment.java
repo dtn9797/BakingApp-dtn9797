@@ -22,8 +22,6 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import java.net.URI;
-
 /**
  * Created by duynguyen on 7/4/18.
  */

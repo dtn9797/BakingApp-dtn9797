@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.example.duynguyen.bakingapp_dtn9797.DetailActivity;
-import com.example.duynguyen.bakingapp_dtn9797.MainActivity;
 import com.example.duynguyen.bakingapp_dtn9797.R;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 

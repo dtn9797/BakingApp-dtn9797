@@ -30,8 +30,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         public IngredientViewHolder(View itemView) {
             super(itemView);
 
-            recipeName = (TextView) itemView.findViewById(R.id.ingredient_name_tv);
-            recipeAmount = (TextView) itemView.findViewById(R.id.ingredient_amount_tv);
+            recipeName = itemView.findViewById(R.id.ingredient_name_tv);
+            recipeAmount = itemView.findViewById(R.id.ingredient_amount_tv);
         }
 
         public void setData(Ingredient data) {

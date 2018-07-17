@@ -6,13 +6,10 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.fragments.IngredientsFragment;
 import com.example.duynguyen.bakingapp_dtn9797.model.Ingredient;
-import com.example.duynguyen.bakingapp_dtn9797.utils.IngredientsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
