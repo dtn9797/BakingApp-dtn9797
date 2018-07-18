@@ -42,7 +42,7 @@ public class RecipeMenuAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        ViewHolder holder = null;
+        ViewHolder holder;
         Recipe currentRecipe = (Recipe) getItem(position);
 
         if (convertView == null) {
