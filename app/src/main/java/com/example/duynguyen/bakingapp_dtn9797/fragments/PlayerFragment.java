@@ -83,19 +83,9 @@ public class PlayerFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (Util.SDK_INT <= 23) {
-            releasePlayer();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (Util.SDK_INT > 23) {
-            releasePlayer();
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        releasePlayer();
     }
 
     private void initializePlayer() {
