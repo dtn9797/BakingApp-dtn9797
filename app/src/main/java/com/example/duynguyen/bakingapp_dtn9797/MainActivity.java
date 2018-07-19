@@ -12,9 +12,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.IdlingResource.SimpleIdlingResource;
@@ -27,13 +24,12 @@ import com.example.duynguyen.bakingapp_dtn9797.widgets.WidgetUpdateService;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecipesAdapter.ItemListener {
 
     static private String Tag = MainActivity.class.getSimpleName();
     public static String RECIPES_EXTRA = "recipes_extra";
@@ -67,20 +63,6 @@ public class MainActivity extends AppCompatActivity {
             loadRecipesData();
         }
 
-//        recipeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
-//                Recipe item = (Recipe) parent.getItemAtPosition(position);
-//                Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
-//                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA, item);
-//
-//                WidgetUpdateService.startActionUpdateListView(getApplicationContext(), item);
-//
-//                startActivity(detailRecipeListIntent);
-//            }
-//        });
-
     }
 
     @Override
@@ -96,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        RecipesAdapter recipesAdapter = new RecipesAdapter(this,mRecipes);
+        RecipesAdapter recipesAdapter = new RecipesAdapter(this, this,mRecipes);
         RecyclerView recyclerView = findViewById(R.id.recipe_rv);
 
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -130,5 +112,18 @@ public class MainActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+    }
+
+    @Override
+    public void onRecipeClicked(int position) {
+
+                Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
+                Recipe item = (Recipe) mRecipes.get(position);
+                Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
+                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA, item);
+
+                WidgetUpdateService.startActionUpdateListView(getApplicationContext(), item);
+
+                startActivity(detailRecipeListIntent);
     }
 }

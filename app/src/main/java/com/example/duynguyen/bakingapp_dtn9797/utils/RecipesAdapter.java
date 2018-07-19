@@ -22,12 +22,19 @@ import java.util.List;
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVH> {
 
     Context mContext;
+    protected static ItemListener mItemListener;
     public List<Recipe> mData = new ArrayList<>();
+
     int[] drawableIds = {R.drawable.n_pie,R.drawable.brownies,R.drawable.yellow_cake,R.drawable.cheese_cake};
 
-    public RecipesAdapter(Context mContext, List<Recipe> mData) {
+    public RecipesAdapter(Context mContext, ItemListener mItemListener ,List<Recipe> mData) {
         this.mContext = mContext;
+        this.mItemListener = mItemListener;
         this.mData = mData;
+    }
+
+    public interface ItemListener {
+        void onRecipeClicked(int position);
     }
 
     @NonNull
@@ -41,7 +48,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVH
     @Override
     public void onBindViewHolder(@NonNull RecipeVH holder, int position) {
         mData.get(position).setImageId(drawableIds[position]);
-        holder.setData(mData.get(position));
+        holder.setData(mData.get(position),position);
     }
 
     @Override
@@ -49,20 +56,29 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVH
         return mData.size();
     }
 
-    public class RecipeVH extends RecyclerView.ViewHolder {
+    public class RecipeVH extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView recipeIv;
         TextView recipeTv;
+        int posVh;
 
         public RecipeVH(View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(this);
 
             recipeIv = itemView.findViewById(R.id.recipe_iv);
             recipeTv = itemView.findViewById(R.id.recipe_tv);
         }
 
-        public void setData (Recipe data){
+        public void setData (Recipe data,int pos){
             recipeTv.setText(data.getName());
             recipeIv.setImageResource(data.getImageId());
+            posVh = pos;
+        }
+
+        @Override
+        public void onClick(View v) {
+            RecipesAdapter.mItemListener.onRecipeClicked(posVh);
         }
     }
 }

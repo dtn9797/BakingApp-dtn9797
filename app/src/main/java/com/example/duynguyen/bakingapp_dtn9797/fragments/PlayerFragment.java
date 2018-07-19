@@ -23,8 +23,6 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import javax.xml.parsers.SAXParser;
-
 /**
  * Created by duynguyen on 7/4/18.
  */
