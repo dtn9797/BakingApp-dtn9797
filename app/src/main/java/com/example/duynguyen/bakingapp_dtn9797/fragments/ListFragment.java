@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.R;
+import com.example.duynguyen.bakingapp_dtn9797.utils.ListAdapter;
 
 import java.util.ArrayList;
 
@@ -64,19 +67,27 @@ public class ListFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_list,container,false);
 
-        ListView listView = rootView.findViewById(R.id.lv);
+        RecyclerView recyclerView = rootView.findViewById(R.id.lv);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        ListAdapter listAdapter = new ListAdapter(getContext(),mNameList);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (getContext(), android.R.layout.simple_list_item_1, mNameList);
-        listView.setAdapter(arrayAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(listAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),mNameList.get(position) + "is clicked.",Toast.LENGTH_SHORT).show();
-                mCallback.onItemSelected(position);
-            }
-        });
+//
+//        ListView listView = rootView.findViewById(R.id.lv);
+//
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+//                (getContext(), android.R.layout.simple_list_item_1, mNameList);
+//        listView.setAdapter(arrayAdapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getContext(),mNameList.get(position) + "is clicked.",Toast.LENGTH_SHORT).show();
+//                mCallback.onItemSelected(position);
+//            }
+//        });
 
         return rootView;
     }
