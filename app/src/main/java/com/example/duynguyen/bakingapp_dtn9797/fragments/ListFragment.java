@@ -31,28 +31,6 @@ public class ListFragment extends Fragment {
 
     private ArrayList<String> mNameList;
 
-    // Define a new interface OnImageClickListener that triggers a callback in the host activity
-    OnItemClickListener mCallback;
-
-
-    // OnImageClickListener interface, calls a method in the host activity named onImageSelected
-    public interface OnItemClickListener {
-        void onItemSelected(int position);
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        // This makes sure that the host activity has implemented the callback interface
-        // If not, it throws an exception
-        try {
-            mCallback = (OnItemClickListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnImageClickListener");
-        }
-    }
-
     public ListFragment() {}
 
     @Nullable
@@ -69,25 +47,10 @@ public class ListFragment extends Fragment {
 
         RecyclerView recyclerView = rootView.findViewById(R.id.lv);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        ListAdapter listAdapter = new ListAdapter(getContext(),mNameList);
+        ListAdapter listAdapter = new ListAdapter(getContext(), (ListAdapter.ItemListener) getContext(),mNameList);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(listAdapter);
-
-//
-//        ListView listView = rootView.findViewById(R.id.lv);
-//
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-//                (getContext(), android.R.layout.simple_list_item_1, mNameList);
-//        listView.setAdapter(arrayAdapter);
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(getContext(),mNameList.get(position) + "is clicked.",Toast.LENGTH_SHORT).show();
-//                mCallback.onItemSelected(position);
-//            }
-//        });
 
         return rootView;
     }

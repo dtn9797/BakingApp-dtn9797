@@ -20,9 +20,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     Context mContext;
     ArrayList<String> mData;
+    protected static ItemListener mItemClickListener;
 
-    public ListAdapter(Context mContext, ArrayList<String> mData) {
+    public ListAdapter(Context mContext, ItemListener mItemClickListener, ArrayList<String> mData) {
         this.mContext = mContext;
+        this.mItemClickListener = mItemClickListener;
         this.mData = mData;
     }
 
@@ -35,7 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        holder.setData(mData.get(position));
+        holder.setData(mData.get(position), position);
 
     }
 
@@ -44,16 +46,28 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         return mData.size();
     }
 
-    public class ListViewHolder extends RecyclerView.ViewHolder {
+    public interface ItemListener {
+        void onItemSelected(int pos);
+    }
+
+    public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView shortDescriptionTv;
+        int VHPos;
 
         public ListViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             shortDescriptionTv = itemView.findViewById(R.id.short_description_tv);
         }
 
-        public void setData (String data){
+        public void setData (String data, int pos){
             shortDescriptionTv.setText(data);
+            VHPos = pos;
+        }
+
+        @Override
+        public void onClick(View v) {
+            ListAdapter.mItemClickListener.onItemSelected(VHPos);
         }
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
 import android.widget.Toast;
 
 import com.example.duynguyen.bakingapp_dtn9797.fragments.IngredientsFragment;
@@ -12,6 +13,7 @@ import com.example.duynguyen.bakingapp_dtn9797.fragments.ListFragment;
 import com.example.duynguyen.bakingapp_dtn9797.fragments.PlayerFragment;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 import com.example.duynguyen.bakingapp_dtn9797.model.Step;
+import com.example.duynguyen.bakingapp_dtn9797.utils.ListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
  * Created by duynguyen on 6/29/18.
  */
 
-public class DetailActivity extends AppCompatActivity implements ListFragment.OnItemClickListener {
+public class DetailActivity extends AppCompatActivity implements ListAdapter.ItemListener{
 
     public static String RECIPE_EXTRA = "recipe_extra";
 
