@@ -9,6 +9,8 @@ import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 import com.example.duynguyen.bakingapp_dtn9797.IdlingResource.SimpleIdlingResource;
 import com.example.duynguyen.bakingapp_dtn9797.model.Recipe;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RecipeClient;
-import com.example.duynguyen.bakingapp_dtn9797.utils.RecipeMenuAdapter;
+import com.example.duynguyen.bakingapp_dtn9797.utils.RecipesAdapter;
 import com.example.duynguyen.bakingapp_dtn9797.utils.RetrofitClient;
 import com.example.duynguyen.bakingapp_dtn9797.widgets.WidgetUpdateService;
 
@@ -36,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
     static private String Tag = MainActivity.class.getSimpleName();
     public static String RECIPES_EXTRA = "recipes_extra";
 
-    @BindView(R.id.recipe_grid_view)
-    GridView recipeGv;
-    RecipeMenuAdapter mRecipeMenuAdapter;
     List<Recipe> mRecipes = new ArrayList<>();
     @Nullable
     private SimpleIdlingResource mIdlingResource;
@@ -68,19 +67,19 @@ public class MainActivity extends AppCompatActivity {
             loadRecipesData();
         }
 
-        recipeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
-                Recipe item = (Recipe) parent.getItemAtPosition(position);
-                Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
-                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA, item);
-
-                WidgetUpdateService.startActionUpdateListView(getApplicationContext(), item);
-
-                startActivity(detailRecipeListIntent);
-            }
-        });
+//        recipeGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getApplicationContext(),"Item is clicked at "+ position,Toast.LENGTH_SHORT).show();
+//                Recipe item = (Recipe) parent.getItemAtPosition(position);
+//                Intent detailRecipeListIntent = new Intent(MainActivity.this,DetailActivity.class);
+//                detailRecipeListIntent.putExtra(DetailActivity.RECIPE_EXTRA, item);
+//
+//                WidgetUpdateService.startActionUpdateListView(getApplicationContext(), item);
+//
+//                startActivity(detailRecipeListIntent);
+//            }
+//        });
 
     }
 
@@ -95,8 +94,13 @@ public class MainActivity extends AppCompatActivity {
         if (mIdlingResource != null) {
             mIdlingResource.setIdleState(true);
         }
-        mRecipeMenuAdapter = new RecipeMenuAdapter(MainActivity.this, R.layout.grid_item_layout, mRecipes);
-        recipeGv.setAdapter(mRecipeMenuAdapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        RecipesAdapter recipesAdapter = new RecipesAdapter(this,mRecipes);
+        RecyclerView recyclerView = findViewById(R.id.recipe_rv);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(recipesAdapter);
     }
 
     public void loadRecipesData () {
